@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpnbsp36xjpwr"]
+
+[ext_resource type="Script" path="res://scripts/MainMenuItems.cs" id="1_3wci4"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MenuBar" type="MenuBar" parent="."]
+editor_description = "power ful editor"
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_3wci4")
+
+[node name="MenuButton" type="MenuButton" parent="MenuBar"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "File"
