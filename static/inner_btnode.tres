@@ -1,0 +1,86 @@
+{
+	"root": {
+		"entry": {
+			"name": "entry",
+			"type": "root",
+			"desc": "绑定单个渲染对象入口",
+			"supposeType": "common"
+		}
+	},
+	"composite": {
+		"sequence": {
+			"name": "sequence",
+			"type": "composite",
+			"desc": "顺序",
+			"supposeType": "common"
+		},
+		"selector": {
+			"name": "selector",
+			"type": "composite",
+			"desc": "选择",
+			"supposeType": "common"
+		},
+		"parallel": {
+			"name": "parallel",
+			"type": "composite",
+			"desc": "并行",
+			"supposeType": "common"
+		}
+	},
+	"decorator": {
+		"loop": {
+			"name": "loop",
+			"type": "decorator",
+			"desc": "重复执行",
+			"supposeType": "common"
+		},
+		"inverter": {
+			"name": "inverter",
+			"type": "decorator",
+			"desc": "取反",
+			"supposeType": "common"
+		},
+		"return_failure": {
+			"name": "return failure",
+			"type": "decorator",
+			"desc": "一直返回失败",
+			"supposeType": "common"
+		},
+		"return_success": {
+			"name": "return_success",
+			"type": "decorator",
+			"desc": "一直返回成功",
+			"supposeType": "common"
+		},
+		"util_failure": {
+			"name": "until failure",
+			"type": "decorator",
+			"desc": "一直执行直到返回失败",
+			"supposeType": "common"
+		},
+		"util_success": {
+			"name": "until success",
+			"type": "decorator",
+			"desc": "一直执行直到返回成功",
+			"supposeType": "common"
+		}
+	},
+	"action": {
+		"log": {
+			"name": "log",
+			"type": "action",
+			"desc": "打印一个log",
+			"supposeType": "common"
+		},
+		"wait": {
+			"name": "wait",
+			"type": "action",
+			"desc": "等待一段时间"
+		},
+		"send_event": {
+			"name": "send event",
+			"type": "action",
+			"desc": "发送一个事件"
+		}
+	}
+}

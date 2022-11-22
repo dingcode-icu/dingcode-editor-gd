@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://scripts/Components/RightMenuCtor.cs" type="Script" id=1]
+[ext_resource path="res://scripts/Components/RightMenuComp.cs" type="Script" id=1]
 
 [sub_resource type="Theme" id=1]
 /fonts/dark_01 = null
@@ -22,12 +22,7 @@ anchor_bottom = 1.0
 [node name="ge_GraphEdit" type="GraphEdit" parent="bg_ColorRect/maincon_VSplite"]
 margin_right = 1280.0
 margin_bottom = 720.0
+snap_distance = 5
+use_snap = false
 minimap_size = Vector2( 120, 60 )
 script = ExtResource( 1 )
-
-[node name="GraphNode" type="GraphNode" parent="bg_ColorRect/maincon_VSplite/ge_GraphEdit"]
-margin_left = 212.0
-margin_top = 236.0
-margin_right = 437.0
-margin_bottom = 421.0
-mouse_filter = 1

@@ -11,8 +11,12 @@ config_version=4
 [application]
 
 config/name="Dingcode-editor-gd"
-run/main_scene="res://core/UI_core.tscn"
+run/main_scene="res://core/UI/UI_core.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Global="*res://core/global.tscn"
 
 [display]
 

@@ -6,7 +6,7 @@ namespace Dingcodeeditorgd.scripts.UI.Config
     /// <summary>
     /// Menu-File
     /// </summary>
-    public enum FileItems 
+    public enum FileItems
     {
         Open,
         Save,
