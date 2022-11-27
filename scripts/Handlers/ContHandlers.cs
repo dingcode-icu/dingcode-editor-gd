@@ -1,22 +1,14 @@
-﻿using Dingcodeeditorgd.scripts.Model;
-using Dingcodeeditorgd.scripts.UI;
-using Godot;
+﻿using Godot;
+using Model;
+using UI;
 
-namespace Dingcodeeditorgd.scripts.Handlers
+namespace Handlers
 {
     public class ContHandlers
     {
-        public static  BtnodeGraphNode CreateFromIdName(string idName)
+        public static  BtnodeGraphNode CreateFromIdName(MBtnode m)
         {
-            var model = new MBtnode
-            {
-                SlotType= BtNodeSlotType.RootOutSlot, 
-                ModelType = BtNodeModelType.Root,    
-                NickName =  idName, 
-                IdName = idName, 
-                Tid = "1"
-            };
-            var gNode = new BtnodeGraphNode(model);
+            var gNode = new BtnodeGraphNode(m);
             return gNode;
         }
 

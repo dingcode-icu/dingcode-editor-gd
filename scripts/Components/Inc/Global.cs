@@ -1,26 +1,24 @@
 using System;
 using Godot;
-using Godot.Collections;
 using LitJson;
+using Model;
 
-namespace Dingcodeeditorgd.scripts.Components.Inc
+namespace Components.Inc
 {
-    struct InnerBTNodesConfig
-    {
-        public JsonType action;
-        
-    }
-    
     public class Global : Node
     {
 
+        private static bool _mIsSetupModel = false;
+        
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
         }
 
-        public void InitInnerMBTNodes()
+        public void SetupBTNodesConfig()
         {
+            if (_mIsSetupModel) return;
+            _mIsSetupModel = true;
             //File seems that couldn't work without GDNode
             //so write here and have a test on GD singleton
             var f = new File();
@@ -30,35 +28,43 @@ namespace Dingcodeeditorgd.scripts.Components.Inc
             var ret = JsonMapper.ToObject(cont);
             try
             {
-                var tNodes = ret["action"];
-                foreach (var name in tNodes)
+                foreach (var nType in ret.Keys)
                 {
-                    GD.Print($"node's name is  {name}");
+                    if (ret.ContainsKey(nType.ToString().ToLower()))
+                    {    
+                        var tNodes = ret[nType];
+                        foreach (var name in tNodes.Keys)
+                        {
+                            _CheckMBTNodesModel(name, tNodes[name]);
+                        }
+                    }
                 }
-
             }
             catch (JsonException e)
             {
                 Console.WriteLine(e);
                 throw;
             }
-
+            GD.Print($"setup btnodeconfig all is {MConfigMgr.Instance.All()}");
+            GD.Print($"setup btnodeconfig ret is {MConfigMgr.Instance.All().Keys}");
         }
 
-        private void CheckMBTNodesModel(string name, JSONParseResult jsRet)
+        private void _CheckMBTNodesModel(string name, JsonData jsRet)
         {
-            GD.Print($"bt key is {name} {jsRet}");
-            var jsRoot = jsRet.Result as Dictionary<string, string>;
             try
             {
-                // jsRoot[""]
+                var m = new MBtnode();
+                m.NickName = jsRet["name"].ToString();
+                m.IdName = jsRet["name"].ToString();
+                m.ModelType = (BtNodeModelType) Enum.Parse(typeof(BtNodeModelType), jsRet["type"].ToString(), true);
+                m.SlotType = MBase.GetSlotType(m.ModelType);
+                MConfigMgr.Instance.Add(name,m);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                GD.PrintErr($"[CheckMBTNodesModel]FAILED check the btnode model->name = {name} \n {e}");
                 throw;
             }
         }
-        
     }
 }

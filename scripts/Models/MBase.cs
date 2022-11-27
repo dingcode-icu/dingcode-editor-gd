@@ -1,11 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
 
-namespace Dingcodeeditorgd.scripts.Model
+namespace Model
 {
     public enum BtNodeModelType
     {
         Root,
-        Composites,
+        Composite,
         Decorator,
         Condition,
         Action,
@@ -21,8 +22,8 @@ namespace Dingcodeeditorgd.scripts.Model
     public enum BtNodeSlotType
     {
         LeafSlot = 1, //0100
-        RootOutSlot = 1 << 1, //0001  
-        CompositesSlot = 1 << 2, //0010
+        RootOutSlot = 2, //0001  
+        CompositesSlot = 3, //0010
     }
 
 
@@ -33,5 +34,20 @@ namespace Dingcodeeditorgd.scripts.Model
         public string NickName;
         public string IdName;
         public string Tid; //unionid in tree model struct 
+    }
+
+    public class MBase
+    {
+        public static BtNodeSlotType GetSlotType(BtNodeModelType mType){
+            switch (mType)
+            {
+                case BtNodeModelType.Root:
+                    return BtNodeSlotType.RootOutSlot; 
+                case BtNodeModelType.Composite:
+                    return BtNodeSlotType.CompositesSlot;
+                default:
+                    return BtNodeSlotType.LeafSlot;
+            }
+        }
     }
 }

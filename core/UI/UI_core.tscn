@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/Components/RightMenuComp.cs" type="Script" id=1]
+[ext_resource path="res://scripts/Components/MainMenuComp.cs" type="Script" id=2]
+[ext_resource path="res://scripts/Components/ContComp.cs" type="Script" id=3]
 
 [sub_resource type="Theme" id=1]
 /fonts/dark_01 = null
@@ -18,11 +20,23 @@ color = Color( 0.0588235, 0.054902, 0.054902, 1 )
 [node name="maincon_VSplite" type="VSplitContainer" parent="bg_ColorRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+collapsed = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="bg_ColorRect/maincon_VSplite"]
+margin_right = 1280.0
+script = ExtResource( 2 )
 
 [node name="ge_GraphEdit" type="GraphEdit" parent="bg_ColorRect/maincon_VSplite"]
+margin_top = 12.0
 margin_right = 1280.0
 margin_bottom = 720.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_offset = Vector2( 0, -52 )
 snap_distance = 5
 use_snap = false
 minimap_size = Vector2( 120, 60 )
+script = ExtResource( 3 )
+
+[node name="ge_RightMenu" type="Node" parent="bg_ColorRect/maincon_VSplite/ge_GraphEdit"]
 script = ExtResource( 1 )

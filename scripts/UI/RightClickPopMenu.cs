@@ -1,11 +1,10 @@
 ﻿using System;
-using Dingcodeeditorgd.scripts.Model;
 using Godot;
 using Godot.Collections;
+using Model;
 using Array = Godot.Collections.Array;
-using Dictionary = Godot.Collections.Dictionary;
 
-namespace Dingcodeeditorgd.scripts.UI
+namespace UI
 {
     public class RightClickPopMenu : PopupMenu
     {
@@ -35,26 +34,36 @@ namespace Dingcodeeditorgd.scripts.UI
             foreach (var val in Enum.GetValues(typeof(BtNodeModelType)))
             {
                 _mSubTypes.Add(val.ToString());
-                _initSubMenus(val is BtNodeModelType ? (BtNodeModelType) val : BtNodeModelType.Root);
+                _InitSubMenus(val is BtNodeModelType ? (BtNodeModelType) val : BtNodeModelType.Root);
                 AddSubmenuItem(val.ToString(), val.ToString());
             }
         }
 
-        private void _initSubMenus(BtNodeModelType pType)
+        private void _InitSubMenus(BtNodeModelType pType)
         {
             if (_mSubMenus.ContainsKey(pType)) return;
+            var bL = new System.Collections.Generic.Dictionary<string, MBtnode>();
+            var isBl = MConfigMgr.Instance.GetMConfigs(pType, out bL);
+            if (!isBl) return;
             var subPm = new PopupMenu();
-            subPm.AddItem("test");
+            foreach (var i in bL.Keys)       
+            {
+                subPm.AddItem(i);
+            }
             subPm.Name = pType.ToString();
-            subPm.Connect("id_pressed", this, "_onMenuPressed", new Array {pType});
+            subPm.Connect("id_pressed", this, nameof(_OnMenuPressed), new Array
+            {
+                subPm.Items
+            });
+            
             AddChild(subPm);
             _mSubMenus[pType] = subPm;
         }
 
-        private void _onMenuPressed(int i, BtNodeModelType mType)
+        private void _OnMenuPressed(int i, Array<string> idName)
         {
-            EmitSignal(nameof(select_item), mType, i);
-            GD.Print($"menu item pressed is {i} type is {mType}");
+            GD.Print($"menu item pressed is {i} idName is {idName[i]}");
+            EmitSignal(nameof(select_item), idName, i);
         }
     }
 }
