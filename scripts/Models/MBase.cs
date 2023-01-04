@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-
-namespace Model
+﻿namespace Model
 {
     public enum BtNodeModelType
     {
@@ -16,7 +13,7 @@ namespace Model
     public enum ModelBase
     {
         Parent = 1,
-        Child = 1 << 2,
+        Child = 1 << 2
     }
 
     public enum BtNodeSlotType
@@ -24,6 +21,7 @@ namespace Model
         LeafSlot = 1, //0100
         RootOutSlot = 2, //0001  
         CompositesSlot = 3, //0010
+        DecoratorSlot = 4, 
     }
 
 
@@ -38,13 +36,16 @@ namespace Model
 
     public class MBase
     {
-        public static BtNodeSlotType GetSlotType(BtNodeModelType mType){
+        public static BtNodeSlotType GetSlotType(BtNodeModelType mType)
+        {
             switch (mType)
             {
                 case BtNodeModelType.Root:
-                    return BtNodeSlotType.RootOutSlot; 
+                    return BtNodeSlotType.RootOutSlot;
                 case BtNodeModelType.Composite:
                     return BtNodeSlotType.CompositesSlot;
+                case BtNodeModelType.Decorator:
+                    return BtNodeSlotType.DecoratorSlot;
                 default:
                     return BtNodeSlotType.LeafSlot;
             }

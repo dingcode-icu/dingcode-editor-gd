@@ -10,7 +10,7 @@ namespace Components
             Connect("connection_request", this, nameof(_OnSlotConnectRequest));
         }
 
-        private void _OnSlotConnectRequest( string from, int fromSlot, string to, int toSlot)
+        private void _OnSlotConnectRequest(string from, int fromSlot, string to, int toSlot)
         {
             ConnectNode(from, fromSlot, to, toSlot);
         }

@@ -7,9 +7,8 @@ namespace Components.Inc
 {
     public class Global : Node
     {
+        private static bool _mIsSetupModel;
 
-        private static bool _mIsSetupModel = false;
-        
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
@@ -29,23 +28,18 @@ namespace Components.Inc
             try
             {
                 foreach (var nType in ret.Keys)
-                {
-                    if (ret.ContainsKey(nType.ToString().ToLower()))
-                    {    
+                    if (ret.ContainsKey(nType.ToLower()))
+                    {
                         var tNodes = ret[nType];
-                        foreach (var name in tNodes.Keys)
-                        {
-                            _CheckMBTNodesModel(name, tNodes[name]);
-                        }
+                        foreach (var name in tNodes.Keys) _CheckMBTNodesModel(name, tNodes[name]);
                     }
-                }
             }
             catch (JsonException e)
             {
                 Console.WriteLine(e);
                 throw;
             }
-            GD.Print($"setup btnodeconfig all is {MConfigMgr.Instance.All()}");
+
             GD.Print($"setup btnodeconfig ret is {MConfigMgr.Instance.All().Keys}");
         }
 
@@ -56,9 +50,9 @@ namespace Components.Inc
                 var m = new MBtnode();
                 m.NickName = jsRet["name"].ToString();
                 m.IdName = jsRet["name"].ToString();
-                m.ModelType = (BtNodeModelType) Enum.Parse(typeof(BtNodeModelType), jsRet["type"].ToString(), true);
+                m.ModelType = (BtNodeModelType)Enum.Parse(typeof(BtNodeModelType), jsRet["type"].ToString(), true);
                 m.SlotType = MBase.GetSlotType(m.ModelType);
-                MConfigMgr.Instance.Add(name,m);
+                MConfigMgr.Instance.Add(name, m);
             }
             catch (Exception e)
             {

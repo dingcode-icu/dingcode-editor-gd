@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using Components.Inc;
 using Godot;
-using Godot.Collections;
 using Handlers;
 using Model;
 
@@ -9,7 +7,6 @@ namespace Components
 {
     public class RightMenuComp : Node
     {
-        
         private Vector2 _curMousePos;
 
 
@@ -18,16 +15,15 @@ namespace Components
             base._Ready();
             var G = GetNode<Global>("/root/Global");
             G.SetupBTNodesConfig();
-            GD.Print($"global node is right {G}");
         }
 
         public override void _Input(InputEvent @event)
         {
             base._Input(@event);
             if (@event is InputEventMouseButton mouse &&
-                mouse.ButtonIndex == (int) ButtonList.Right &&
+                mouse.ButtonIndex == (int)ButtonList.Right &&
                 mouse.Pressed
-            )
+               )
             {
                 var mpos = mouse.Position;
                 _curMousePos = mpos;
@@ -38,14 +34,13 @@ namespace Components
             }
         }
 
-        private void _onSelectItem(Array<string> idName, int i)
+        private void _onSelectItem(string idName)
         {
-            var m = MConfigMgr.Instance.Get(idName[i]);
+            var m = MConfigMgr.Instance.Get(idName);
             var btGraph = ContHandlers.CreateFromIdName(m);
             GetParent().AddChild(btGraph);
             GD.Print($"global position is {_curMousePos}");
             btGraph.SetPosition(_curMousePos);
-            GD.Print($"on select item on {m.IdName}, {i}");    
         }
     }
 }

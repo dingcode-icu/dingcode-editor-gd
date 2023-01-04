@@ -5,13 +5,16 @@ namespace Model
 {
     public class MConfigMgr
     {
-        private IDictionary<string, MBtnode> _mAllBTNodes = new Dictionary<string , MBtnode>();
-        private Dictionary<BtNodeModelType, Dictionary<string, MBtnode>> _mTypeBTNodes = new Dictionary<BtNodeModelType, Dictionary<string, MBtnode>>();
         private static MConfigMgr _inc;
+        private readonly IDictionary<string, MBtnode> _mAllBTNodes = new Dictionary<string, MBtnode>();
+
+        private readonly Dictionary<BtNodeModelType, Dictionary<string, MBtnode>> _mTypeBTNodes =
+            new Dictionary<BtNodeModelType, Dictionary<string, MBtnode>>();
+
         public static MConfigMgr Instance => _inc ?? (_inc = new MConfigMgr());
 
         /// <summary>
-        /// 添加配置管理
+        ///     添加配置管理
         /// </summary>
         /// <param name="idName"></param>
         /// <param name="mNode"></param>
@@ -22,16 +25,15 @@ namespace Model
                 GD.PrintErr($"idName = {idName} is already exists!");
                 return;
             }
+
             _mAllBTNodes.Add(idName, mNode);
             if (!_mTypeBTNodes.ContainsKey(mNode.ModelType))
-            {
                 _mTypeBTNodes.Add(mNode.ModelType, new Dictionary<string, MBtnode>());
-            }
             _mTypeBTNodes[mNode.ModelType].Add(idName, mNode);
         }
 
         /// <summary>
-        /// 直接用idName唯一值获取配置
+        ///     直接用idName唯一值获取配置
         /// </summary>
         /// <param name="idName"></param>
         public MBtnode Get(string idName)

@@ -1,10 +1,7 @@
-using Godot;
-using Godot.Collections;
-
 namespace Dingcodeeditorgd.scripts.UI.Config
 {
     /// <summary>
-    /// Menu-File
+    ///     Menu-File
     /// </summary>
     public enum FileItems
     {
@@ -15,7 +12,7 @@ namespace Dingcodeeditorgd.scripts.UI.Config
 
 
     /// <summary>
-    /// MenuBottoms
+    ///     MenuBottoms
     /// </summary>
     public struct MenuBottoms
     {
